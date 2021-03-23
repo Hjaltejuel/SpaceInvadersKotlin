@@ -5,13 +5,18 @@ import javafx.scene.canvas.GraphicsContext
 import javafx.scene.paint.Color
 import javafx.stage.Stage
 
-class SpaceShip (screenWidth : Double, screenHeight : Double, private val primaryStage : Stage) : HasBoundary {
+class SpaceShip (val screenWidth : Double, val screenHeight : Double) : HasBoundary {
 
 
     private var xVelocity : Double = 0.0
     private var x : Double = screenWidth/2 - 24
     private var y : Double = screenHeight - 188
 
+    fun reset(){
+        xVelocity  = 0.0
+        x  = screenWidth/2 - 24
+        y  = screenHeight - 188
+    }
 
     fun move (input : HashSet<String>){
         when{
@@ -22,7 +27,7 @@ class SpaceShip (screenWidth : Double, screenHeight : Double, private val primar
                 }
             }
             input.contains("RIGHT") -> {
-                if(x <= primaryStage.width - 100) {
+                if(x <= screenWidth - 100) {
                     xVelocity += 0.2
                     updateX(xVelocity)
                 }
@@ -50,8 +55,8 @@ class SpaceShip (screenWidth : Double, screenHeight : Double, private val primar
             x = 100.0;
             xVelocity = -xVelocity
         }
-        else if(x + velocity > primaryStage.width - 100) {
-            x = primaryStage.width - 100
+        else if(x + velocity >screenWidth - 100) {
+            x = screenWidth- 100
             xVelocity = -xVelocity
         }
         else

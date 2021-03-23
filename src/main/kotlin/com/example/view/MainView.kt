@@ -16,6 +16,9 @@ import tornadofx.*
 import kotlin.random.Random
 
 class MainView : View("Space Invaders") {
+
+
+
     override val root = pane {
         background.apply {
             addClass(Styles.backgroundcolor)
@@ -72,7 +75,9 @@ class MainView : View("Space Invaders") {
                     tf.setOnFinished {
                         childListInner?.remove(spaceShip)
                         translateHidden.setOnFinished {
-                            replaceWith(GameView())
+                            val gameView = find(GameView::class)
+                            replaceWith(gameView)
+                            gameView.reset()
                         }
                         translateHidden.play()
 

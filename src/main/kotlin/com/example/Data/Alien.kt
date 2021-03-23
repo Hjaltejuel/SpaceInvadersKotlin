@@ -17,6 +17,16 @@ class Alien (private val column: Int, private val row : Int, private val type : 
     var board : Array<Array<Alien>>? = null
 
 
+    fun reset(){
+        x  = 50 + (column * 100.0) + 100
+        y  = (row*100.0)
+        state = false
+        toTheRight = true
+        isFiring = board!![column].size == row + 1
+        isDead = false
+        deathTime = 0L
+    }
+
     fun init(board : Array<Array<Alien>>) {
         this.board = board
         isFiring = board[column].size == row + 1

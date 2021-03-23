@@ -13,34 +13,33 @@ class GameOverView : View("My View") {
     companion object{
         var score : Double = 0.0
     }
-    override val root = pane{
 
+    val smallStars = StarFunctions.getStars(primaryStage.width.toInt(), 1.0)
+    val mediumStars = StarFunctions.getStars(primaryStage.width.toInt(), 2.0)
+    var smallStarAnimation =  smallStars.map { StarFunctions.animateStar(it, 15.seconds, 15000.0) }
+    var mediumStarAnimation = mediumStars.map { StarFunctions.animateStar(it, 25.seconds, 25000.0) }
+
+
+    fun reset(){
+        score = 0.0
+
+    }
+
+    override val root = pane{
         background.apply {
             addClass(Styles.backgroundcolor)
         }
 
         setPrefSize(primaryStage.width, primaryStage.height)
-        val smallStars = StarFunctions.getStars(prefWidth.toInt(), 1.0)
-        val mediumStars = StarFunctions.getStars(prefWidth.toInt(), 2.0)
+        smallStarAnimation.forEach{it.play()}
+        mediumStarAnimation.forEach{it.play()}
 
-        smallStars.map { StarFunctions.animateStar(it, 15.seconds, 15000.0) }
-
-        mediumStars.map { StarFunctions.animateStar(it, 25.seconds, 25000.0) }
-
-        val allStars = smallStars + mediumStars
-        var fadeOut = allStars.map { StarFunctions.fadeOut(it, getChildList()) }
 
         val childList = getChildList();
 
         childList?.addAll(mediumStars)
         childList?.addAll(smallStars)
-        var hiddenShip = SpaceShipAnimation.createSpaceShip(776.0, 550.0)
 
-        val translateHidden = TranslateTransition(Duration(3000.0), hiddenShip)
-        translateHidden.toY = 450.0
-        fun addHiden(){
-            add(hiddenShip)
-        }
 
         hbox {
             setPrefSize(primaryStage.width, primaryStage.height)
@@ -69,22 +68,10 @@ class GameOverView : View("My View") {
                 val childListInner = getChildList()
 
                 b.action {
-                    fadeOut.forEach { it.play() }
-                    StarFunctions.fadeOut(score, childListInner).play()
-                    StarFunctions.fadeOut(b, childListInner).play()
-
-                    val tf = StarFunctions.fadeOut(text, childList)
-                    tf.setOnFinished {
-                        addHiden()
-                        childListInner?.remove(spaceShip)
-                        translateHidden.setOnFinished {
-                            replaceWith(GameView())
-                        }
-                        translateHidden.play()
-
-                    }
-                    tf.play()
-
+                    childListInner?.remove(spaceShip)
+                    val gameView = find(GameView::class)
+                    gameView.reset()
+                    replaceWith(gameView, ViewTransition.Fade(Duration(1000.0)))
                 }
             }
 

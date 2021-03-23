@@ -8,6 +8,7 @@ import javafx.scene.shape.Circle
 import javafx.util.Duration
 import tornadofx.keyframe
 import tornadofx.timeline
+import java.sql.Time
 import kotlin.random.Random
 
 class StarFunctions {
@@ -29,8 +30,8 @@ class StarFunctions {
 
         }
 
-        fun animateStar(it : Circle, duration: Duration, end : Double) {
-            timeline {
+        fun animateStar(it : Circle, duration: Duration, end : Double) : Timeline {
+            return timeline {
                 keyframe(duration){
                     keyvalue(it.translateYProperty(), -1200)
                 }

@@ -11,10 +11,12 @@ import kotlin.random.Random
 
 class MyApp: App(MainView::class, Styles::class){
     override fun start(stage: Stage) {
+
         super.start( stage.apply {
             width = 1600.0
             height = 1200.0
             stage.isResizable = false
+
         })
 
 
