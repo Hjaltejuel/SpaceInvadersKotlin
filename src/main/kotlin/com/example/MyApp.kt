@@ -14,6 +14,7 @@ class MyApp: App(MainView::class, Styles::class){
         super.start( stage.apply {
             width = 1600.0
             height = 1200.0
+            stage.isResizable = false
         })
 
 

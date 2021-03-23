@@ -17,6 +17,7 @@ class Styles : Stylesheet() {
         val intro by cssclass()
         val center by cssclass()
         val paddingTop by cssclass()
+        val score by cssclass()
     }
 
     init {
@@ -71,6 +72,16 @@ class Styles : Stylesheet() {
 
 
         }
+
+        score{
+            textAlignment = TextAlignment.CENTER
+            fontWeight = FontWeight.BOLD
+            val list = listOf(Stop(0.0,Color.WHITE),Stop(1.0, c("#38495a")))
+            fill = LinearGradient(1.0, 0.0, 1.0, 1.0, true, CycleMethod.NO_CYCLE, list)
+            textFill = c( "#FFF" )
+            fontSize = 30.px;
+        }
+
         label and heading {
             padding = box(10.px)
             fontSize = 20.px
