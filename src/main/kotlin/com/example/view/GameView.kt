@@ -35,7 +35,7 @@ class GameView : View("My View") {
 
         canvas.graphicsContext2D.fillRect(100.0,100.0,100.0,100.0)
         fun gameOvers(score: Double) {
-            GameOverView.score = score
+            GameOverView.scoreText.text =  "Score : ${score}"
             val gameOverView = find(GameOverView::class)
             gameOverView.reset()
             replaceWith(gameOverView, ViewTransition.Fade(Duration(1000.0)))

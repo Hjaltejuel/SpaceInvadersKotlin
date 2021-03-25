@@ -5,13 +5,14 @@ import com.example.logic.SpaceShipController
 import com.example.Styles
 import com.example.logic.StarFunctions
 import javafx.animation.TranslateTransition
+import javafx.scene.text.Text
 import javafx.util.Duration
 import tornadofx.*
 
 class GameOverView : View("My View") {
 
     companion object{
-        var score : Double = 0.0
+        var scoreText = Text("Hello")
     }
 
     val smallStars = StarFunctions.getStars(primaryStage.width.toInt(), 1.0)
@@ -21,7 +22,7 @@ class GameOverView : View("My View") {
 
 
     fun reset(){
-        score = 0.0
+
 
     }
 
@@ -55,10 +56,10 @@ class GameOverView : View("My View") {
                 add(text)
                 val spaceShip = SpaceShipAnimation.createSpaceShip(0.0, 0.0)
                 add(spaceShip)
-                val score =   text("Score : $score"){
+                scoreText  =   text(""){
                     addClass(Styles.score)
                 }
-                add(score)
+                add(scoreText)
                 val b = button("Retry?") {
                     minHeight = 50.0
                     minWidth = 150.0
